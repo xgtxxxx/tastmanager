@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="task.dao.TaskMapper" >
+  <resultMap id="BaseResultMap" type="task.model.Task" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="releaseVersion" property="releaseVersion" jdbcType="VARCHAR" />
+    <result column="progress" property="progress" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="assign_date" property="assignDate" jdbcType="DATE" />
+    <result column="fixed_date" property="fixedDate" jdbcType="DATE" />
+    <result column="owner" property="owner" jdbcType="INTEGER" />
+     <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="feedback" property="feedback" jdbcType="VARCHAR" />
+    <result column="comments_questions" property="commentsAndQuestions" jdbcType="VARCHAR" />
+    <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="status_desc" property="statusDesc" jdbcType="VARCHAR" />
+    <result column="font_color" property="fontColor" jdbcType="VARCHAR" />
+    <result column="bg_color" property="bgColor" jdbcType="VARCHAR" />
+    <result column="pending_issues" property="pendingIssues" jdbcType="VARCHAR" />
+    <result column="team" property="team" jdbcType="INTEGER" />
+    <result column="team_name" property="teamName" jdbcType="VARCHAR" />
+    <result column="email" property="ownerEmail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, task_id, description, releaseVersion, progress, status, assign_date, fixed_date, owner, ownerName,
+    comments_questions, feedback, submit_time, last_update_time, enabled, team
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="task.model.Task" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="releaseVersion != null" >
+        releaseVersion,
+      </if>
+      <if test="progress != null" >
+        progress,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="assignDate != null" >
+        assign_date,
+      </if>
+      <if test="fixedDate != null" >
+        fixed_date,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="ownerName != null" >
+        owner_name,
+      </if>
+      <if test="commentsAndQuestions != null" >
+        comments_questions,
+      </if>
+      <if test="feedback != null" >
+        feedback,
+      </if>
+      <if test="pendingIssues != null" >
+        pending_issues,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="team != null" >
+        team,
+      </if>
+      <if test="teamName != null" >
+        team_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseVersion != null" >
+        #{releaseVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        #{progress,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="assignDate != null" >
+        #{assignDate,jdbcType=DATE},
+      </if>
+      <if test="fixedDate != null" >
+        #{fixedDate,jdbcType=DATE},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentsAndQuestions != null" >
+        #{commentsAndQuestions,jdbcType=VARCHAR},
+      </if>
+      <if test="feedback != null" >
+        #{feedback,jdbcType=VARCHAR},
+      </if>
+      <if test="pendingIssues != null" >
+        #{pendingIssues,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="team != null" >
+        #{team,jdbcType=INTEGER},
+      </if>
+      <if test="teamName != null" >
+        #{teamName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="task.model.Task" >
+    update task
+    <set >
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseVersion != null" >
+        releaseVersion = #{releaseVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        progress = #{progress,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="assignDate != null" >
+        assign_date = #{assignDate,jdbcType=DATE},
+      </if>
+      <if test="fixedDate != null" >
+        fixed_date = #{fixedDate,jdbcType=DATE},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="ownerName != null" >
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentsAndQuestions != null" >
+        comments_questions = #{commentsAndQuestions,jdbcType=VARCHAR},
+      </if>
+      <if test="feedback != null" >
+        feedback = #{feedback,jdbcType=VARCHAR},
+      </if>
+      <if test="pendingIssues != null" >
+        pending_issues = #{pendingIssues,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="team != null" >
+        team = #{team,jdbcType=VARCHAR},
+      </if>
+      <if test="teamName != null" >
+        team_name = #{teamName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllTaskPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    task.id,
+	task.task_id,
+	task.description,
+	task.releaseVersion,
+	task.progress,
+	task.pending_issues,
+	task.status,
+	DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+	DATE_FORMAT(task.fixed_date,'%Y-%m-%d')  fixed_date,
+	task.owner,
+	task.owner_name,
+	task.comments_questions,
+	task.feedback,
+	DATE_FORMAT(task.submit_time, '%Y-%m-%d %T') submit_time,
+	DATE_FORMAT(task.last_update_time, '%Y-%m-%d %T') last_update_time,
+	status.description status_desc,
+	status.font_color,
+	status.bg_color,
+	task.team,
+	task.team_name
+    from task, status where task.enabled = 1 and task.status = status.id
+    
+    <if test="taskId != null">  
+        and task.task_id like '%${taskId}%'  
+    </if>
+    <if test="startDate != null">  
+        <![CDATA[and task.assign_date>=#{startDate}]]>  
+    </if>
+    <if test="endDate != null">  
+        <![CDATA[and task.assign_date<=#{endDate}]]>   
+    </if>
+    <if test="submitDate != null">  
+        <![CDATA[and task.submit_time like '${submitDate}%']]>   
+    </if>
+    <if test="owner != null">  
+    	and task.owner_name like '%${owner}%' 
+    </if>
+    <if test="ownerId != null">  
+    	and task.owner=#{ownerId} 
+    </if>
+    <if test="status != null">  
+    	and task.status in
+		<foreach item="item" index="index" collection="status" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+    <if test="team != null">  
+    	and task.team in
+		<foreach item="item" index="index" collection="team" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+    order by task.owner_name,task.submit_time desc 
+   </select>
+   
+    <select id="listTask" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    task.id,
+	task.task_id,
+	task.description,
+	task.releaseVersion,
+	task.progress,
+	task.pending_issues,
+	task.status,
+	DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+	DATE_FORMAT(task.fixed_date,'%Y-%m-%d')  fixed_date,
+	task.owner,
+	task.owner_name,
+	task.comments_questions,
+	task.feedback,
+	DATE_FORMAT(task.submit_time, '%Y-%m-%d %T') submit_time,
+	DATE_FORMAT(task.last_update_time, '%Y-%m-%d %T') last_update_time,
+	status.description status_desc,
+	status.font_color,
+	status.bg_color,
+	task.team,
+	task.team_name
+    from task, status where task.enabled = 1 and task.status = status.id
+    
+    <if test="taskId != null">  
+        and task.task_id like '%${taskId}%'  
+    </if>
+    <if test="startDate != null">  
+        <![CDATA[and task.assign_date>=#{startDate}]]>  
+    </if>
+    <if test="endDate != null">  
+        <![CDATA[and task.assign_date<=#{endDate}]]>   
+    </if>
+    <if test="submitDate != null">  
+        <![CDATA[and task.submit_time like '${submitDate}%']]>   
+    </if>
+    <if test="owner != null">  
+    	and task.owner_name like '%${owner}%' 
+    </if>
+    <if test="ownerId != null">  
+    	and task.owner=#{ownerId} 
+    </if>
+    <if test="status != null">  
+    	and task.status in
+		<foreach item="item" index="index" collection="status" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+    <if test="team != null">  
+    	and task.team in
+		<foreach item="item" index="index" collection="team" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+    order by task.submit_time desc 
+    limit #{start},#{limit}
+   </select>
+   
+    <select id="listTaskCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select 
+    count(*)
+    from task, status where task.enabled = 1 and task.status = status.id
+    
+    <if test="taskId != null">  
+        and task.task_id like '%${taskId}%'  
+    </if>
+    <if test="startDate != null">  
+        <![CDATA[and task.assign_date>=#{startDate}]]>  
+    </if>
+    <if test="endDate != null">  
+        <![CDATA[and task.assign_date<=#{endDate}]]>   
+    </if>
+    <if test="submitDate != null">  
+        <![CDATA[and task.submit_time like '${submitDate}%']]>   
+    </if>
+    <if test="owner != null">  
+    	and task.owner_name like '%${owner}%' 
+    </if>
+    <if test="ownerId != null">  
+    	and task.owner=#{ownerId} 
+    </if>
+    <if test="status != null">  
+    	and task.status in
+		<foreach item="item" index="index" collection="status" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+    <if test="team != null">  
+    	and task.team in
+		<foreach item="item" index="index" collection="team" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+   </select>
+   
+    <select id="selectAllTask" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    task.id,
+	task.task_id,
+	task.description,
+	task.releaseVersion,
+	task.progress,
+	task.status,
+	DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+	DATE_FORMAT(task.fixed_date,'%Y-%m-%d')  fixed_date,
+	task.owner,
+	task.owner_name,
+	task.comments_questions,
+	task.feedback,
+	DATE_FORMAT(task.submit_time, '%Y-%m-%d %T') submit_time,
+	DATE_FORMAT(task.last_update_time, '%Y-%m-%d %T') last_update_time,
+	status.description status_desc,
+	status.font_color,
+	status.bg_color,
+	task.team,
+	task.team_name,
+	task.pending_issues
+    from task, status where task.enabled = 1 and task.status = status.id
+    <if test="taskId != null">  
+        and task.task_id like '%${taskId}%'  
+    </if>
+    <if test="startDate != null">  
+        <![CDATA[and task.assign_date>=#{startDate}]]>  
+    </if>
+    <if test="endDate != null">  
+        <![CDATA[and task.assign_date<=#{endDate}]]>   
+    </if>
+    <if test="submitDate != null">  
+        <![CDATA[and task.submit_time like '${submitDate}%']]>   
+    </if>
+    <if test="owner != null">  
+    	and task.owner_name like '%${owner}%' 
+    </if>
+    <if test="ownerId != null">  
+    	and task.owner=#{ownerId} 
+    </if>
+    <if test="status != null">  
+    	and task.status in
+		<foreach item="item" index="index" collection="status" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+    <if test="team != null">  
+    	and task.team in
+		<foreach item="item" index="index" collection="team" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </if>
+    order by submit_time desc 
+   </select>
+   
+   <select id="selectEmailTask" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+	task.task_id,
+	task.description,
+	task.releaseVersion,
+	task.progress,
+	task.status,
+	DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+	case when task.fixed_date is null then '' else DATE_FORMAT(task.fixed_date,'%Y-%m-%d') end  fixed_date,
+	task.progress,
+	task.owner,
+	task.owner_name,
+	case when task.comments_questions is null then '' else task.comments_questions end commentsAndQuestions,
+	task.pending_issues,
+	case when task.feedback is null then '' else task.feedback end feedback,
+	status.description status_desc,
+	status.font_color,
+	status.bg_color,
+	task.team,
+	task.team_name
+    from task,status
+    where task.enabled = 1 and task.status = status.id and date(task.submit_time) = curdate()  
+    and task.team not in(select groupId from emaillog where sendTime>=curdate() and emailType=1 and groupType=2)
+    order by task.owner, submit_time desc
+   </select>
+   
+   
+   <select id="listMonthlyTasks" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select  
+    	task.id,
+		task.task_id,
+		task.description,
+		task.releaseVersion,
+		task.progress,
+		task.status,
+		DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+		DATE_FORMAT(task.fixed_date,'%Y-%m-%d')  fixed_date,
+		task.owner,
+		task.owner_name,
+		task.comments_questions,
+		task.feedback,
+		DATE_FORMAT(task.submit_time, '%Y-%m-%d %T') submit_time,
+		DATE_FORMAT(task.last_update_time, '%Y-%m-%d %T') last_update_time,
+		status.description status_desc,
+		status.font_color,
+		status.bg_color,
+		task.team,
+		task.team_name,
+		task.pending_issues
+	from(
+		select * from task 
+		where task.enabled=1 and task.owner=#{account} and <![CDATA[ 
+		task.submit_time<=now() and task.submit_time>=#{startTime}
+		]]>
+		order by submit_time desc) task,status 
+	where task.status = status.id
+	group by task.task_id order by task.status asc,task.submit_time desc
+   </select>
+   
+   <select id="listMonthlyTasks_bak" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select  
+    	task.id,
+		task.task_id,
+		task.description,
+		task.releaseVersion,
+		task.progress,
+		task.status,
+		DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+		DATE_FORMAT(task.fixed_date,'%Y-%m-%d')  fixed_date,
+		task.owner,
+		task.owner_name,
+		task.comments_questions,
+		task.feedback,
+		DATE_FORMAT(task.submit_time, '%Y-%m-%d %T') submit_time,
+		DATE_FORMAT(task.last_update_time, '%Y-%m-%d %T') last_update_time,
+		status.description status_desc,
+		status.font_color,
+		status.bg_color,
+		task.team,
+		task.team_name
+	from(
+		select * from task 
+		where task.enabled=1 and task.owner=#{account} and <![CDATA[ 
+		task.submit_time<=now() and task.submit_time>=#{startTime}
+		]]>
+		order by status asc,submit_time desc) task,status 
+	where task.status = status.id
+	group by task.task_id order by task.submit_time desc
+   </select>
+   
+   <select id="listTaskByIds" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  
+    	task.id,
+		task.task_id,
+		task.description,
+		task.releaseVersion,
+		task.progress,
+		task.status,
+		DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+		DATE_FORMAT(task.fixed_date,'%Y-%m-%d')  fixed_date,
+		task.owner,
+		task.comments_questions,
+		task.feedback,
+		DATE_FORMAT(task.submit_time, '%Y-%m-%d %T') submit_time,
+		DATE_FORMAT(task.last_update_time, '%Y-%m-%d %T') last_update_time,
+		status.description status_desc,
+		status.font_color,
+		status.bg_color,
+		task.team,
+		task.team_name
+	from task ,status 
+	where 
+		task.status = status.id 
+		and task.id in
+		<foreach item="item" index="index" collection="array" 
+             open="(" separator="," close=")">
+             #{item}
+        </foreach>
+   </select>
+   
+   <select id="getTodayTaskByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+	task.task_id,
+	task.description,
+	task.releaseVersion,
+	task.progress,
+	task.status,
+	DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+	case when task.fixed_date is null then '' else DATE_FORMAT(task.fixed_date,'%Y-%m-%d') end  fixed_date,
+	task.progress,
+	task.owner,
+	task.owner_name,
+	case when task.comments_questions is null then '' else task.comments_questions end commentsAndQuestions,
+	task.pending_issues,
+	case when task.feedback is null then '' else task.feedback end feedback,
+	status.description status_desc,
+	status.font_color,
+	status.bg_color,
+	task.team,
+	task.team_name,
+	user.account email
+    from task,status,user 
+    where task.enabled = 1 and task.status = status.id and task.owner=user.id and date(task.submit_time) = curdate() and task.owner=#{userId} 
+    order by submit_time desc
+  </select>
+  
+  <select id="getTodayTaskByTeamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+	task.task_id,
+	task.description,
+	task.releaseVersion,
+	task.progress,
+	task.status,
+	DATE_FORMAT(task.assign_date,'%Y-%m-%d') assign_date,
+	case when task.fixed_date is null then '' else DATE_FORMAT(task.fixed_date,'%Y-%m-%d') end  fixed_date,
+	task.progress,
+	task.owner,
+	task.owner_name,
+	case when task.comments_questions is null then '' else task.comments_questions end commentsAndQuestions,
+	task.pending_issues,
+	case when task.feedback is null then '' else task.feedback end feedback,
+	status.description status_desc,
+	status.font_color,
+	status.bg_color,
+	task.team,
+	task.team_name,
+	user.account email
+    from task,status,user 
+    where task.enabled = 1 and task.status = status.id and task.owner=user.id and date(task.submit_time) = curdate() and task.team=#{teamId} 
+    order by task.owner, submit_time desc
+  </select>
+   
+</mapper>

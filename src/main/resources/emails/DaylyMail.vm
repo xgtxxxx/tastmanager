@@ -1,0 +1,65 @@
+<table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="1232" style="width:924.0pt; border-collapse:collapse">
+<tbody>
+<tr style="height:15.6pt">
+<td width="46" rowspan="2" style="width:34.85pt; border:solid windowtext 1.0pt; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">No.</span></b></p></td>
+<td width="58" rowspan="2" style="width:43.4pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">ID</span></b></p></td>
+<td width="394" rowspan="2" style="width:295.4pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Description</span></b></p></td>
+<td width="104" rowspan="2" style="width:78.1pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Release Version</span></b></p></td>
+<td width="136" rowspan="2" style="width:101.65pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Status</span></b></p></td>
+<td width="71" rowspan="2" style="width:53.55pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Assign Date</span></b></p></td>
+<td width="71" rowspan="2" style="width:53.55pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Fixed Date</span></b></p></td>
+<td width="57" rowspan="2" style="width:42.95pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Progress</span></b></p></td>
+<td width="98" rowspan="2" style="width:73.2pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Owner</span></b></p></td>
+<td width="196" rowspan="2" style="width:147.35pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Comments/Question</span></b></p></td>
+<td width="0" height="21" style="height:15.6pt; border:none"></td>
+<td width="196" rowspan="2" style="width:147.35pt; border:solid windowtext 1.0pt; border-left:none; background:#FFFF99; padding:0cm 5.4pt 0cm 5.4pt; height:15.6pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">Pending Issues</span></b></p></td>
+<td width="0" height="21" style="height:15.6pt; border:none"></td>
+</tr>
+<tr style="height:16.5pt">
+<td width="0" height="22" style="height:16.5pt; border:none"></td>
+</tr>
+#foreach ($group in $taskGroups)
+#if ($showTeam)
+				<tr><td class="style-blod" colspan="12">${group.team}</td></tr> 
+#end
+#foreach ($task in ${group.tasks})
+<tr style="height:48.95pt">
+<td width="46" nowrap="nowrap" bgcolor="#FFFFFF" style="width:34.85pt; border:solid windowtext 1.0pt; border-top:none; background:white; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US" style="font-size:9pt">$velocityCount</span></p></td>
+<td width="58" nowrap="nowrap" bgcolor="#FFFFFF" style="white-space:nowrap;width:43.4pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:9pt">$task.taskId</span></b></p></td>
+<td width="394" bgcolor="#FFFFFF" style="width:295.4pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="left" style="text-align:left"><b><span lang="EN-US" style="font-size:9pt">$task.description</span></b></p></td>
+<td width="104" nowrap bgcolor="#FFFFFF" style="width:78.1pt; border:none; border-bottom:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US" style="font-size:9pt">$task.releaseVersion</span></p></td>
+<td width="136" nowrap="nowrap" style="width:101.65pt; border:solid windowtext 1.0pt; border-top:none; background: $task.bgColor; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US" style="font-size:9pt;color=$task.fontColor">$task.statusDesc</span></p></td>
+<td width="71" nowrap="nowrap" bgcolor="#FFFFFF" style="width:53.55pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US" style="white-space:nowrap;font-size:9.0pt">$!{task.assignDate}</span></p></td>
+<td width="71" nowrap="nowrap" bgcolor="#FFFFFF" style="width:53.55pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US" style="white-space:nowrap;font-size:9.0pt">$!{task.fixedDate}</span></p></td>
+<td width="57" nowrap="nowrap" bgcolor="#FFFFFF" style="width:42.95pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><span style="font-size:9.0pt; font-family:宋体">　</span><span lang="EN-US" style="font-size:9.0pt">${task.progress}%</span></p></td>
+<td width="98" nowrap="nowrap" bgcolor="#FFFFFF" style="width:73.2pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US" style="font-size:9pt">$task.ownerName</span></p></td>
+<td width="196" bgcolor="#FFFFFF" style="width:147.35pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="left" style="text-align:left"><span lang="EN-US" style="font-size:9.0pt">$task.commentsAndQuestions</span></p></td>
+<td width="0" height="65" bgcolor="#FFFFFF" style="height:48.95pt; border:none"></td>
+<td width="196" bgcolor="#FFFFFF" style="width:147.35pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt; height:48.95pt">
+<p class="MsoNormal" align="left" style="text-align:left"><span lang="EN-US" style="font-size:9.0pt">$task.pendingIssues</span></p></td>
+</tr>
+#end
+#end
+</tbody>
+</table>

@@ -1,0 +1,24 @@
+Hi,<br/>
+This is ${user.username}'s monthly report for ${month}.<br/><br/>
+<strong>Achievements of ${month}</strong><br/>
+<br/>
+  #foreach ($task in $tasks)
+&nbsp;&nbsp;*&nbsp;${task.description}<br/>
+  #end
+<br/> 
+<strong>Goals for ${goalsMonth}</strong>
+<br/>
+<br/> 
+#foreach ($goal in $goals)
+&nbsp;&nbsp;*&nbsp;$goal<br/>
+#end
+<br/>
+#if ($hasNote)
+	<strong>Notes:</strong>
+	&nbsp;&nbsp;${notes}
+	<br/><br/> 
+#end
+Best regards,<br/>
+<br/> 
+Thanks,<br/>
+${user.username}(${user.account})

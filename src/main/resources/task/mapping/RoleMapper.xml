@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="task.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="task.model.Role">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteRoleUser" parameterType="java.lang.Integer">
+    delete from user_role
+    where role_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="task.model.Role">
+    insert into role (id, name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="task.model.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="task.model.Role">
+    update role
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="task.model.Role">
+    update role
+    set name = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    <where>
+		<if test="name != null">
+			name = #{name,jdbcType=VARCHAR}
+		</if>    	
+    </where>
+  </select>
+  
+   <select id="listMyRoles" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from role where id in(
+    	select role_id from user_role where user_id=#{userId}
+    )
+  </select>
+  
+  <select id="listOtherRoles" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from role where id not in(
+    	select role_id from user_role where user_id=#{userId}
+    )
+  </select>
+  
+  <insert id="addUserRole" parameterType="java.util.Map">
+  		insert into user_role(role_id,user_Id) values(#{roleId},#{userId})
+  </insert>
+  
+  <delete id="delUserRole" parameterType="java.util.Map">
+  		delete from user_role where role_id=#{roleId} and user_id=#{userId}
+  </delete>
+</mapper>

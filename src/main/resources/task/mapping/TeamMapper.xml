@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="task.dao.TeamMapper" >
+  <resultMap id="BaseResultMap" type="task.model.Team" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="teamleader" property="teamleader" jdbcType="INTEGER" />
+    <result column="leader" property="leader" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, teamleader
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from team
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from team
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="task.model.Team" >
+    insert into team (id, name, teamleader
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{teamleader,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="task.model.Team" >
+    insert into team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="teamleader != null" >
+        teamleader,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teamleader != null" >
+        #{teamleader,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="task.model.Team" >
+    update team
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teamleader != null" >
+        teamleader = #{teamleader,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="task.model.Team" >
+    update team
+    set name = #{name,jdbcType=VARCHAR},
+      teamleader = #{teamleader,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select a.id, a.name, a.teamleader, u.account leader from team a left join user u on u.id=a.teamleader
+    <where>
+		<if test="name != null">
+			name = #{name,jdbcType=VARCHAR}
+		</if> 
+		<if test="userId != null">
+			a.id in (select t.team_id from team_user t where t.user_id=#{userId,jdbcType=INTEGER})
+		</if>    	
+    </where>
+  </select>
+  
+   <select id="selectTaskTeams" resultMap="BaseResultMap" >
+    select a.team id, b.name from task a, team b where a.team = b.id
+	<if test="owner != null" >
+       and a.owner = #{owner,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectTLTeams" resultMap="BaseResultMap" >
+    select team.id, team.name from team
+		inner join user on team.teamleader=user.id 
+	where user.account = #{account,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="listMyTeams" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select a.id, a.name, a.teamleader from team a,user u,team_user tu
+    where a.id=tu.team_id and u.id=tu.user_id and u.id=#{userId}
+  </select>
+  
+  <select id="listOtherTeams" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select a.id, a.name, a.teamleader from team a where a.id not in(
+    	select team_id from team_user where user_id=#{userId}
+    )
+  </select>
+  
+  <insert id="addUserTeam" parameterType="java.util.Map">
+  		insert into team_user(team_id,user_Id) values(#{teamId},#{userId})
+  </insert>
+  
+  <delete id="delUserTeam" parameterType="java.util.Map">
+  		delete from team_user where team_id=#{teamId} and user_id=#{userId}
+  </delete>
+  
+  <select id="selectTeamForNotice" resultMap="BaseResultMap" >
+    select a.id, a.name, a.teamleader from team a where a.id not in(
+    	select groupId teamId from emaillog where groupType=2 and sendTime>curdate()
+    )
+  </select>
+  
+</mapper>

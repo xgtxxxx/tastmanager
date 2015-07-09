@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="task.dao.EmailConfigMapper">
+	<select id="getEmailConfig" resultType="task.model.EmailConfig">
+		select * from emailconfig where id=1
+	</select>
+	
+	<update id="saveChange" parameterType="task.model.EmailConfig" >
+    update emailconfig
+    <set>
+      <if test="host != null" >
+        host = #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="startTls != null" >
+        startTls = #{startTls,jdbcType=VARCHAR},
+      </if>
+      <if test="auth != null" >
+        auth = #{auth,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyTo != null" >
+        dailyTo = #{dailyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyCc != null" >
+        dailyCc = #{dailyCc,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyBcc != null" >
+        dailyBcc = #{dailyBcc,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyTo != null" >
+        monthlyTo = #{monthlyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyBcc != null" >
+        monthlyBcc = #{monthlyBcc,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyCc != null" >
+        monthlyCc = #{monthlyCc,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlySubject != null" >
+        monthlySubject = #{monthlySubject,jdbcType=VARCHAR},
+      </if>
+      <if test="dailySubject != null" >
+        dailySubject = #{dailySubject,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyTime != null" >
+        dailyTime = #{dailyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        noticeTime = #{noticeTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = 1
+  </update>
+</mapper>

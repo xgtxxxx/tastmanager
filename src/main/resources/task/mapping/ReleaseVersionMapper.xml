@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="task.dao.ReleaseVersionMapper" >
+  <resultMap id="BaseResultMap" type="task.model.ReleaseVersion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="active" property="active" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, active
+  </sql>
+  <select id="getAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from version
+    where active!=1
+  </select>
+  
+  <select id="listActiveVersion" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from version
+    where active=3
+    <if test="p != null">  
+        and name like '%${p}%'  
+    </if>
+  </select>
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from version
+    where active!=1 and name=#{name}
+  </select>
+  
+  <insert id="insertVersion" parameterType="task.model.ReleaseVersion" >
+    insert into version (name,active)
+    values (#{name,jdbcType=VARCHAR},#{active,jdbcType=INTEGER})
+  </insert>
+  <update id="updateVersion" parameterType="task.model.ReleaseVersion" >
+    update version
+    set name = #{name,jdbcType=VARCHAR},active=#{active,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="deleteById" parameterType="java.lang.Integer">
+   	update version set active=1 where id=#{id}
+  </update>
+</mapper>
